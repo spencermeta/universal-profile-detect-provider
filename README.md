@@ -1,18 +1,18 @@
-# @metamask/detect-provider
+# @spencermeta/universal-profile-detect-provider
 
-A tiny utility for detecting the MetaMask Ethereum provider, or any provider injected at `window.ethereum`.
+A tiny utility for detecting the Universal Profile Ethereum provider, or any provider injected at `window.ethereum`.
 
 It has 0 dependencies and works out of the box in any modern browser, for synchronously and asynchronously injected providers.
 
 ## Usage
 
 Keep in mind that the providers detected by this package may or may not support [the Ethereum JavaScript Provider API](https://eips.ethereum.org/EIPS/eip-1193).
-Please consult [the MetaMask documentation](https://docs.metamask.io/guide/ethereum-provider.html) to learn how to use our provider.
+Please consult [the Universal Profile documentation](https://docs.lukso.io/guide/ethereum-provider.html) to learn how to use our provider.
 
 ### Node.js
 
 ```javascript
-import detectEthereumProvider from '@metamask/detect-provider'
+import detectEthereumProvider from '@universal-profile-detect-provider'
 
 const provider = await detectEthereumProvider()
 
@@ -32,14 +32,14 @@ if (provider) {
 } else {
 
   // if the provider is not detected, detectEthereumProvider resolves to null
-  console.error('Please install MetaMask!')
+  console.error('Please install Universal Profile!')
 }
 ```
 
 ### HTML
 
 ```html
-<script src="https://unpkg.com/@metamask/detect-provider/dist/detect-provider.min.js"></script>
+<script src=""></script>
 <script type="text/javascript">
   const provider = await detectEthereumProvider()
 
@@ -57,13 +57,13 @@ The exported function takes an optional `options` object.
 If invalid options are provided, an error will be thrown.
 All options have default values.
 
-#### `options.mustBeMetaMask`
+#### `options.isUniversalProfile`
 
 Type: `boolean`
 
 Default: `false`
 
-Whether `window.ethereum.isMetaMask === true` is required for the returned Promise to resolve.
+Whether `window.ethereum.isUniversalProfile === true` is required for the returned Promise to resolve.
 
 #### `options.silent`
 

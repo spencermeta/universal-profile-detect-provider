@@ -18,15 +18,15 @@ const mockGlobalProps = (ethereum) => {
 }
 
 // different mock providers
-const providerWithMetaMask = {
-  isMetaMask: true,
+const providerWithUniversalProfileExtension = {
+  isUniversalProfileExtension: true,
 }
-const providerNoMetaMask = {}
+const providerNoUniversalProfileExtension = {}
 const noProvider = null
 
-test('detectProvider: defaults with ethereum already set', async function (t) {
+test('detectProvider: defaults with Universal Profile Extension already set', async function (t) {
 
-  mockGlobalProps(providerNoMetaMask)
+  mockGlobalProps(providerNoUniversalProfileExtension)
 
   const provider = await detectProvider()
 
@@ -36,23 +36,23 @@ test('detectProvider: defaults with ethereum already set', async function (t) {
   t.end()
 })
 
-test('detectProvider: mustBeMetamask with ethereum already set', async function (t) {
+test('detectProvider: mustBeUniversalProfileExtension with ethereum already set', async function (t) {
 
-  mockGlobalProps(providerWithMetaMask)
+  mockGlobalProps(providerWithUniversalProfileExtension)
 
   const provider = await detectProvider()
 
-  t.ok(provider.isMetaMask, 'should have resolved expected provider object')
+  t.ok(provider.isUniversalProfileExtension, 'should have resolved expected provider object')
   t.ok(window.addEventListener.notCalled, 'addEventListener should not have been called')
   t.ok(window.removeEventListener.calledOnce, 'removeEventListener called once')
   t.end()
 })
 
-test('detectProvider: mustBeMetamask with non-MetaMask ethereum already set', async function (t) {
+test('detectProvider: mustBeUniversalProfileExtension with non-UniversalProfileExtension ethereum already set', async function (t) {
 
-  mockGlobalProps(providerNoMetaMask)
+  mockGlobalProps(providerNoUniversalProfileExtension)
 
-  const result = await detectProvider({ timeout: 1, mustBeMetaMask: true })
+  const result = await detectProvider({ timeout: 1, mustBeUniversalProfileExtension: true })
   t.equal(result, null, 'promise should have resolved null')
   t.ok(window.addEventListener.notCalled, 'addEventListener should not have been called')
   t.ok(window.removeEventListener.calledOnce, 'removeEventListener called once')
@@ -67,7 +67,7 @@ test('detectProvider: ethereum set on ethereum#initialized', async function (t) 
   const detectPromise = detectProvider({ timeout: 1 })
 
   // set ethereum and call event handler as though event was dispatched
-  window.ethereum = providerWithMetaMask
+  window.ethereum = providerWithUniversalProfileExtension
   window.addEventListener.lastCall.args[1]()
 
   // advance clock to ensure nothing blows up
@@ -76,7 +76,7 @@ test('detectProvider: ethereum set on ethereum#initialized', async function (t) 
 
   const provider = await detectPromise
 
-  t.ok(provider.isMetaMask, 'should have resolved expected provider object')
+  t.ok(provider.isUniversalProfileExtension, 'should have resolved expected provider object')
   t.ok(window.addEventListener.calledOnce, 'addEventListener should have been called once')
   t.ok(window.removeEventListener.calledOnce, 'removeEventListener should have been called once')
 
@@ -92,14 +92,14 @@ test('detectProvider: ethereum set at end of timeout', async function (t) {
   const detectPromise = detectProvider({ timeout: 1 })
 
   // set ethereum
-  window.ethereum = providerWithMetaMask
+  window.ethereum = providerWithUniversalProfileExtension
 
   // advance clock to trigger timeout function
   clock.tick(1)
 
   const provider = await detectPromise
 
-  t.ok(provider.isMetaMask, 'should have resolved expected provider object')
+  t.ok(provider.isUniversalProfileExtension, 'should have resolved expected provider object')
   t.ok(window.addEventListener.calledOnce, 'addEventListener should have been called once')
   t.ok(window.removeEventListener.calledOnce, 'removeEventListener should have been called once')
 

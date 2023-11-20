@@ -1,5 +1,5 @@
-interface MetaMaskEthereumProvider {
-  isMetaMask?: boolean;
+interface UniversalProfileExtensionEthereumProvider {
+  isUniversalProfileExtension?: boolean;
   once(eventName: string | symbol, listener: (...args: any[]) => void): this;
   on(eventName: string | symbol, listener: (...args: any[]) => void): this;
   off(eventName: string | symbol, listener: (...args: any[]) => void): this;
@@ -9,7 +9,7 @@ interface MetaMaskEthereumProvider {
 }
 
 interface Window {
-  ethereum?: MetaMaskEthereumProvider;
+  ethereum?: UniversalProfileExtensionEthereumProvider;
 }
 
 export = detectEthereumProvider;
@@ -21,7 +21,7 @@ export = detectEthereumProvider;
  * are provided.
  *
  * @param options - Options bag.
- * @param options.mustBeMetaMask - Whether to only look for MetaMask providers.
+ * @param options.mustBeUniversalProfileExtension - Whether to only look for UniversalProfileExtension providers.
  * Default: false
  * @param options.silent - Whether to silence console errors. Does not affect
  * thrown errors. Default: false
@@ -30,8 +30,8 @@ export = detectEthereumProvider;
  * @returns A Promise that resolves with the Provider if it is detected within
  * given timeout, otherwise null.
  */
-function detectEthereumProvider<T = MetaMaskEthereumProvider>({
-  mustBeMetaMask = false,
+function detectEthereumProvider<T = UniversalProfileExtensionEthereumProvider>({
+  mustBeUniversalProfileExtension = false,
   silent = false,
   timeout = 3000,
 } = {}): Promise<T | null> {
@@ -69,29 +69,29 @@ function detectEthereumProvider<T = MetaMaskEthereumProvider>({
 
       const { ethereum } = window as Window;
 
-      if (ethereum && (!mustBeMetaMask || ethereum.isMetaMask)) {
+      if (ethereum && (!mustBeUniversalProfileExtension || ethereum.isUniversalProfileExtension)) {
         resolve(ethereum as unknown as T);
       } else {
 
-        const message = mustBeMetaMask && ethereum
-          ? 'Non-MetaMask window.ethereum detected.'
+        const message = mustBeUniversalProfileExtension && ethereum
+          ? 'Non-UniversalProfileExtension window.ethereum detected.'
           : 'Unable to detect window.ethereum.';
 
-        !silent && console.error('@metamask/detect-provider:', message);
+        !silent && console.error('@spencermeta/universal-profile-detect-provider:', message);
         resolve(null);
       }
     }
   });
 
   function _validateInputs() {
-    if (typeof mustBeMetaMask !== 'boolean') {
-      throw new Error(`@metamask/detect-provider: Expected option 'mustBeMetaMask' to be a boolean.`);
+    if (typeof mustBeUniversalProfileExtension !== 'boolean') {
+      throw new Error(`@spencermeta/universal-profile-detect-provider: Expected option 'mustBeUniversalProfileExtension' to be a boolean.`);
     }
     if (typeof silent !== 'boolean') {
-      throw new Error(`@metamask/detect-provider: Expected option 'silent' to be a boolean.`);
+      throw new Error(`@spencermeta/universal-profile-detect-provider: Expected option 'silent' to be a boolean.`);
     }
     if (typeof timeout !== 'number') {
-      throw new Error(`@metamask/detect-provider: Expected option 'timeout' to be a number.`);
+      throw new Error(`@spencermeta/universal-profile-detect-provider: Expected option 'timeout' to be a number.`);
     }
   }
 }
