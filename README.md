@@ -39,7 +39,7 @@ if (provider) {
 ### HTML
 
 ```html
-<script src=""></script>
+<script src="https://unpkg.com/universal-profile-detect-provider@0.0.1/dist/detect-provider.min.js"></script>
 <script type="text/javascript">
   const provider = await detectEthereumProvider()
 
