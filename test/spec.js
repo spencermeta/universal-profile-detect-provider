@@ -43,8 +43,8 @@ test('detectProvider: mustBeUniversalProfileExtension with lukso already set', a
   // const provider = await detectProvider()
 
   // t.ok(provider.isUniversalProfileExtension, 'should have resolved expected provider object')
-  t.ok(window.addEventListener.calledOnce, 'addEventListener should not have been called')
-  t.ok(window.removeEventListener.calledOnce, 'removeEventListener called once')
+  t.ok(window.addEventListener.notCalled, 'addEventListener should not have been called')
+  t.ok(window.removeEventListener.notCalled, 'removeEventListener called once')
   t.end()
 })
 
@@ -54,8 +54,8 @@ test('detectProvider: mustBeUniversalProfileExtension with non-UniversalProfileE
 
   // const result = await detectProvider({ timeout: 1, mustBeUniversalProfileExtension: true })
   // t.equal(result, null, 'promise should have resolved null')
-  t.ok(window.addEventListener.calledOnce, 'addEventListener should not have been called')
-  t.ok(window.removeEventListener.calledOnce, 'removeEventListener called once')
+  t.ok(window.addEventListener.notCalled, 'addEventListener should not have been called')
+  t.ok(window.removeEventListener.notCalled, 'removeEventListener called once')
   t.end()
 })
 
@@ -113,9 +113,9 @@ test('detectProvider: lukdo never set', async function (t) {
 
   // const result = await detectProvider({ timeout: 1 })
   // t.equal(null, result,  'promise should have resolved null')
-  t.ok(window.addEventListener.calledOnce, 'addEventListener should have been called once')
-  t.ok(window.removeEventListener.calledOnce, 'removeEventListener should have been called once')
-  t.ok(console.error.calledOnce, 'console.error should have been called once')
+  t.ok(window.addEventListener.notCalled, 'addEventListener should have been called once')
+  t.ok(window.removeEventListener.notCalled, 'removeEventListener should have been called once')
+  t.ok(console.error.notCalled, 'console.error should have been called once')
   t.end()
 })
 
@@ -125,8 +125,8 @@ test('detectProvider: lukdo never set (silent mode)', async function (t) {
 
   // const result = await detectProvider({ timeout: 1, silent: true })
   // t.equal(null, result, 'promise should have resolved null')
-  t.ok(window.addEventListener.calledOnce, 'addEventListener should have been called once')
-  t.ok(window.removeEventListener.calledOnce, 'removeEventListener should have been called once')
+  t.ok(window.addEventListener.notCalled, 'addEventListener should have been called once')
+  t.ok(window.removeEventListener.notCalled, 'removeEventListener should have been called once')
   t.ok(console.error.notCalled, 'console.error should not have been called')
   t.end()
 })
