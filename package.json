@@ -1,6 +1,6 @@
 {
   "name": "universal-profile-detect-provider",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A tiny utility for detecting the Universal Profile Ethereum provider, or any EIP 1193-compliant provider.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",

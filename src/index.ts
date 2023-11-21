@@ -9,7 +9,7 @@ interface UniversalProfileExtensionEthereumProvider {
 }
 
 interface Window {
-  ethereum?: UniversalProfileExtensionEthereumProvider;
+  lukso?: UniversalProfileExtensionEthereumProvider;
 }
 
 export = detectEthereumProvider;
@@ -41,41 +41,41 @@ function detectEthereumProvider<T = UniversalProfileExtensionEthereumProvider>({
   let handled = false;
 
   return new Promise((resolve) => {
-    if ((window as Window).ethereum) {
+    if ((window as Window).lukso) {
 
-      handleEthereum();
+      handleLukso();
 
     } else {
 
       window.addEventListener(
-        'ethereum#initialized',
-        handleEthereum,
+        'lukso#initialized',
+        handleLukso,
         { once: true },
       );
 
       setTimeout(() => {
-        handleEthereum();
+        handleLukso();
       }, timeout);
     }
 
-    function handleEthereum() {
+    function handleLukso() {
 
       if (handled) {
         return;
       }
       handled = true;
 
-      window.removeEventListener('ethereum#initialized', handleEthereum);
+      window.removeEventListener('lukso#initialized', handleLukso);
 
-      const { ethereum } = window as Window;
+      const { lukso } = window as Window;
 
-      if (ethereum && (!mustBeUniversalProfileExtension || ethereum.isUniversalProfileExtension)) {
-        resolve(ethereum as unknown as T);
+      if (lukso && (!mustBeUniversalProfileExtension || lukso.isUniversalProfileExtension)) {
+        resolve(lukso as unknown as T);
       } else {
 
-        const message = mustBeUniversalProfileExtension && ethereum
-          ? 'Non-UniversalProfileExtension window.ethereum detected.'
-          : 'Unable to detect window.ethereum.';
+        const message = mustBeUniversalProfileExtension && lukso
+          ? 'Non-UniversalProfileExtension window.lukso detected.'
+          : 'Unable to detect window.lukso.';
 
         !silent && console.error('@spencermeta/universal-profile-detect-provider:', message);
         resolve(null);
